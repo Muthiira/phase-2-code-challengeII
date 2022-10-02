@@ -6,17 +6,16 @@ function BotsPage() {
   const[data, setData] = useState({});
   //start here with your code for step one
   // fetch function
-  function fetchData (){
-    fetch("http://localhost:8002/bots")
-    .then((resp) => resp.json())
-    .then((bots) => setData(bots))
-  }
-useEffect(fetchData, []);
+useEffect(() => {
+  fetch("http://localhost:8002/bots")
+  .then(resp => resp.json())
+  .then((bots) => setData(bots));
+}, []);
 console.log(data);
   return (
     <div>
       <YourBotArmy />
-      <BotCollection />
+      <BotCollection bots={data}/>
     </div>
   )
 }
