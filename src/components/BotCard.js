@@ -9,15 +9,32 @@ const botTypeClasses = {
   Captain: "icon star",
 };
 
-function BotCard({bot}) {
+function BotCard({ bot, army, setArmy, setData, setActiveBot }) {
+  function handleDelete() {
+    fetch(`http://localhost:8002/bots/${bot.id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then(() => {
+        setData((bots) => bots.filter((botArm) => botArm.id !== bot.id))
+        alert('Bot deleted')
+      }
+      );
+  }
+
+  function handleClick() {
+    if (army.find((botArm) => botArm.id === bot.id)) {
+      setArmy((army) => army.filter((botArm) => botArm.id !== bot.id));
+    } else {
+      setActiveBot(bot)
+
+    }
+  }
+
   return (
     <div className="ui column">
-      <div
-        className="ui card"
-        key={bot.id}
-        onClick={() => console.log("add code to connect event listener")}
-      >
-        <div className="image">
+      <div className="ui card" key={bot.id}>
+        <div className="image" onClick={handleClick}>
           <img alt="oh no!" src={bot.avatar_url} />
         </div>
         <div className="content">
@@ -45,12 +62,7 @@ function BotCard({bot}) {
           </span>
           <span>
             <div className="ui center aligned segment basic">
-              <button
-                className="ui mini red button"
-                onClick={() =>
-                  console.log("add code to connect event listener")
-                }
-              >
+              <button className="ui mini red button" onClick={handleDelete}>
                 x
               </button>
             </div>
