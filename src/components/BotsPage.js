@@ -20,7 +20,7 @@ function BotsPage() {
       <YourBotArmy
         army={army}
         setArmy={setArmy}
-        setData={setData}
+        setData={setArmy}
       />
       {activeBot ? (<BotSpecs bot={activeBot} setActiveBot={setActiveBot} setArmy={setArmy}/>
       ) : (
